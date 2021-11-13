@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">storeDAM</string>
+    <string name="titulo_login">Iniciar Sesion</string>
+    <string name="str_usuario">USERNAME</string>
+    <string name="str_contrasena">PASSWORD</string>
+    <string name="txt_iniciar">SIGN IN</string>
+    <string name="txt_registrar_login">SIGN UP</string>
+    <string name="txt_nombres">NAME</string>
+    <string name="txt_apellidos">LAST NAME</string>
+    <string name="txt_email">EMAIL</string>
+    <string name="txt_contrasena">PASSWORD</string>
+    <string name="txt_chechbox">TERMS OF SERVICE</string>
+    <string name="txt_registrar">FINISH</string>
+    <string name="title_activity_menu">MenuActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+
+</resources>

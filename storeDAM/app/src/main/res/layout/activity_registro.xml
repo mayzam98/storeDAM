@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/clr_activity_background"
+    tools:context=".RegistroActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_registrar_login"
+        style="@style/tv_titulo">
+    </TextView>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_nombres"
+        android:inputType="text"
+        style="@style/MyEditText"></EditText>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_apellidos"
+        android:inputType="text"
+        style="@style/MyEditText"></EditText>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_email"
+        android:inputType="textEmailAddress"
+        style="@style/MyEditText"></EditText>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_contrasena"
+        android:inputType="textPassword"
+        style="@style/MyEditText"></EditText>
+    <CheckBox
+        android:id="@+id/chb_terminos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_chechbox"
+        style="@style/MyEditText"></CheckBox>
+    <Button
+        android:id="@+id/btn_terminar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/txt_registrar"
+        android:enabled="false"
+        style="@style/btn_general"></Button>
+
+</LinearLayout>
