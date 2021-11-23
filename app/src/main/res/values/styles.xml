@@ -7,9 +7,9 @@
         <item name="android:textColor">@color/clr_titulo_login</item>
     </style>
 
-    <style name="MyEditText" parent="@android:style/Widget.EditText">
+    <style name="edt_login" parent="@android:style/Widget.EditText">
         <item name="android:gravity">center</item>
-        <item name="android:layout_margin">30dp</item>
+        <item name="android:layout_margin">10dp</item>
     </style>
 
     <style name="btn_general" parent="@android:style/Widget.Button">
