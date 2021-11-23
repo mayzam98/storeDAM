@@ -22,4 +22,10 @@
         android:name="com.example.storedam.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+
+    <fragment
+        android:id="@+id/nav_Producto"
+        android:name="com.example.storedam.ProductoFragment"
+        android:label="@string/menu_productos"
+        tools:layout="@layout/fragment_producto" />
 </navigation>

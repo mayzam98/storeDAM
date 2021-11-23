@@ -1,9 +1,12 @@
 package com.example.storedam;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.storedam.util.Constant;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -20,6 +23,7 @@ public class MenuActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMenuBinding binding;
+    private SharedPreferences misPreferencias;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +45,24 @@ public class MenuActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_Producto)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        //recibo parametros enviados desde MainActivity
+       Bundle bundle = getIntent().getExtras();
+       if(bundle != null){
+           Log.e("Bundle_usuario", (String) bundle.get("Usuario"));
+           Log.e("Bundle_contraseña", bundle.getString("contraseña") );
+           //Log.e("Bundle_value", bundle.getString("value") );
+       }
+
+       misPreferencias = getSharedPreferences(Constant.PREFERENCE, MODE_PRIVATE);
+        String usuario = misPreferencias.getString("usuario", "NO HAY USUARIO");
+        String contrasena = misPreferencias.getString("contraseña", "NO HAY CONTRASEÑA");
     }
 
     @Override
