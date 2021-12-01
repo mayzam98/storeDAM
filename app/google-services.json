@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "35886778997",
+    "project_id": "storedam-14751",
+    "storage_bucket": "storedam-14751.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:35886778997:android:26a77a43ae9ea71a43063c",
+        "android_client_info": {
+          "package_name": "com.example.storedam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "35886778997-9uqoma25baahjtq3plep1d9prqcttdm6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_eUW1SyNo_e3hJjlJ-5plplZ4Q2oWjZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "35886778997-9uqoma25baahjtq3plep1d9prqcttdm6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/drawable/ic_baseline_add_shopping_cart_24.xml" value="0.2911458333333333" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.2911458333333333" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/layout/activity_detalle_producto.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/layout/activity_detalle_producto2.xml" value="0.23333333333333334" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/layout/activity_main.xml" value="0.2617753623188406" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/layout/activity_registro.xml" value="0.35733695652173914" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/layout/activity_terminos.xml" value="0.22509057971014493" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/layout/row_item_productos.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/CQ/Documents/GitHub/storeDAM/app/src/main/res/menu/activity_menu_drawer.xml" value="0.25" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>

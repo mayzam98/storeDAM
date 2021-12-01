@@ -1,27 +1,26 @@
 package com.example.storedam.ui.gallery;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.example.storedam.DetalleProductoActivity;
 import com.example.storedam.R;
 import com.example.storedam.databinding.FragmentGalleryBinding;
 
@@ -34,10 +33,11 @@ public class GalleryFragment extends Fragment {
     private TextView tev_galeria;
     private Spinner spn_categorias;
 
-    private String productos = "[{\"nombre\":\"XBOX ONE\",\"categoria\":\"Consolas\",\"precio\":1550000,\"enStock\":true},{\"nombre\":\"Nintendo Switch\",\"categoria\":\"Consolas\",\"precio\":1649000,\"enStock\":true},{\"nombre\":\"PS4\",\"categoria\":\"Consolas\",\"precio\":1699000,\"enStock\":true},{\"nombre\":\"PS5\",\"categoria\":\"Consolas\",\"precio\":3769000,\"enStock\":true}]";
+    private String productos = "[{\"nombre\":\"XBOX ONE\",\"categoria\":\"Consolas\",\"precio\":1550000,\"enStock\":true,\"imagen\":\"https://imgr.search.brave.com/Q5NlFEFSSnIy0UMzacTqli6h9Z-ZIdyDO61RxhJqBM8/fit/1200/681/ce/1/aHR0cHM6Ly92aWdu/ZXR0ZS53aWtpYS5u/b2Nvb2tpZS5uZXQv/Z2FtZXJzcGVkaWEv/aW1hZ2VzLzEvMTQv/WGJveF9PbmUucG5n/L3JldmlzaW9uL2xh/dGVzdD9jYj0yMDE3/MDgxMzIyMzIyMCZw/YXRoLXByZWZpeD1l/cw\"},{\"nombre\":\"Nintendo Switch\",\"categoria\":\"Consolas\",\"precio\":1649000,\"enStock\":true,\"imagen\":\"https://assets.nintendo.eu/image/upload/v1634255691/NAL/Nintendo%20Switch%20Family/Nintendo%20Switch%20Online/Online%20Service/nswitch_switch_home_menu_hardware_engb.png\"},{\"nombre\":\"PS4\",\"categoria\":\"Consolas\",\"precio\":1699000,\"enStock\":true,\"imagen\":\"https://imgr.search.brave.com/4zIijBKO1IgcJJgbzavPv7VZNnfFTny6k-Kd33qhpLk/fit/1200/1080/ce/1/aHR0cDovL3d3dy5w/bmdtYXJ0LmNvbS9m/aWxlcy83L1BTNC1Q/TkctSW1hZ2UucG5n\"},{\"nombre\":\"PS5\",\"categoria\":\"Consolas\",\"precio\":3769000,\"enStock\":true,\"imagen\":\"https://www.vodafone.cz/public/design/images/pages/playstation/ps5.png\"}]";
 
     private RecyclerView rev_productos;
     private RecyclerView.Adapter mAdapter;
+    private ImageView imv_item_producto;
 
     private FragmentGalleryBinding binding;
 
@@ -107,6 +107,8 @@ class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ViewHolder>
 
     private JSONArray productos;
     private Activity miActividad;
+    private ViewHolder holder;
+    private int position;
 
     public ProductosAdapter(JSONArray productos, Activity miActividad) {
         this.productos = productos;
@@ -128,13 +130,15 @@ class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ViewHolder>
             String nombre = this.productos.getJSONObject(position).getString("nombre");
             String categoria = this.productos.getJSONObject(position).getString("categoria");
             int precio = this.productos.getJSONObject(position).getInt("precio");
-            /*String imagen = this.productos.getJSONObject(position).getString("imagen");*/
+            String imagen = this.productos.getJSONObject(position).getString("imagen");
 
             holder.tev_item_name.setText(nombre);
             holder.tev_item_categoria.setText(categoria);
             holder.tev_item_precio.setText("$" + precio);
 
-           /* if (imagen.equals("picasso")) {
+            //Glide.with(miActividad).load("imagen").into(holder.imv_item_producto);
+
+            if (imagen.equals("picasso")) {
 
                 holder.imv_item_producto.setImageResource(miActividad.getResources().getIdentifier(imagen, "drawable", miActividad.getPackageName()));
 
@@ -144,8 +148,44 @@ class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ViewHolder>
                         .load(imagen)
                         .placeholder(new ColorDrawable(Color.BLACK))
                         .into(holder.imv_item_producto);
-            }*/
+            }
 
+
+
+           /* holder.btn_item_favorito.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(miActividad, "Agregado a favoritos", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+
+            holder.btn_item_carrito.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(miActividad, "Agregado al Carrito", Toast.LENGTH_SHORT).show();
+                }
+            });*/
+
+
+
+            ////VISTA DE DETALLE
+            holder.imv_item_producto.setOnClickListener(new View.OnClickListener() {
+                int position = holder.getAdapterPosition();
+                @Override
+                public void onClick(View v) {
+                    try {
+                        //Log.e("PRODUCTOS: ", productos.getJSONObject(position).toString());
+                       Intent intent = new Intent(miActividad, DetalleProductoActivity.class);
+                       intent.putExtra("producto",productos.getJSONObject(position).toString());
+                        miActividad.startActivity(intent);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
         } catch (JSONException e) {
             holder.tev_item_name.setText("error");
@@ -164,12 +204,16 @@ class ProductosAdapter extends RecyclerView.Adapter<ProductosAdapter.ViewHolder>
         private TextView tev_item_categoria;
         private TextView tev_item_precio;
         private ImageView imv_item_producto;
+//        //private ImageButton btn_item_favorito;
+        //private ImageButton btn_item_carrito;
         public ViewHolder(View v) {
             super(v);
             tev_item_name = v.findViewById(R.id.tev_item_name);
             tev_item_categoria = v.findViewById(R.id.tev_item_categoria);
             tev_item_precio = v.findViewById(R.id.tev_item_precio);
-           /* imv_item_producto = v.findViewById(R.id.imv_item_producto);*/
+            imv_item_producto = v.findViewById(R.id.imv_item_producto);
+            //btn_item_favorito = v.findViewById(R.id.btn_item_favorito);
+            //btn_item_carrito = v.findViewById(R.id.btn_item_carrito);
 
         }
     }

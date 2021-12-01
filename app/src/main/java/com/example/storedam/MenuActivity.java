@@ -1,8 +1,10 @@
 package com.example.storedam;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
@@ -10,6 +12,8 @@ import com.example.storedam.util.Constant;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -51,6 +55,36 @@ public class MenuActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_menu);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                int id=menuItem.getItemId();
+                //it's possible to do more actions on several items, if there is a large amount of items I prefer switch(){case} instead of if()
+                if (id == R.id.nav_salir){
+
+                    SharedPreferences.Editor editor = misPreferencias.edit();
+
+                    editor.putString("usuario", "");
+                    editor.putString("contrasena", "");
+                    editor.commit();
+
+                    //editor.clear();
+
+                    Intent intent = new Intent(MenuActivity.this, MainActivity.class);
+                    startActivity(intent);
+
+                    finish();
+                    return true;
+
+                }
+                //This is for maintaining the behavior of the Navigation view
+                NavigationUI.onNavDestinationSelected(menuItem,navController);
+                //This is for closing the drawer after acting on it
+                drawer.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
         //recibo parametros enviados desde MainActivity
        Bundle bundle = getIntent().getExtras();

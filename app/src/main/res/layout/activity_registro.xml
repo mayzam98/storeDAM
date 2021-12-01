@@ -22,12 +22,14 @@
         </TextView>
 
         <EditText
+            android:id="@+id/edt_nombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_nombres"
             android:inputType="text"
             style="@style/edt_login"></EditText>
         <EditText
+            android:id="@+id/edt_apellido"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/txt_apellidos"
