@@ -17,11 +17,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -89,7 +95,8 @@ public class RegistroActivity extends AppCompatActivity {
                     resultIntent.putExtra("contraseña", edt_contrasena.getText().toString());
                     setResult(Activity.RESULT_OK,resultIntent);
                     finish();*/
-                    registrarUsuarioFirebase(correo, contrasena );
+                    //registrarUsuarioFirebase(correo, contrasena );
+                    registrarUsuarioFirestore(nombre,apellido,correo,contrasena);
                 }
             }
         });
@@ -103,6 +110,53 @@ public class RegistroActivity extends AppCompatActivity {
         matcher = pattern.matcher(password);
 
         return matcher.matches();
+    }
+
+    public void registrarUsuarioFirestore(String nombre, String apellido, String correo, String contrasena){
+
+        // Access a Cloud Firestore instance from your Activity
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        // Create a new user with a first and last name
+        Map<String, Object> usuario = new HashMap<>();
+        usuario.put("nombre", nombre);
+        usuario.put("apellido", apellido);
+        usuario.put("correo", correo);
+        usuario.put("contrasena", contrasena);
+
+// Add a new document with a generated ID
+        /*db.collection("Usuarios")
+                .add(usuario)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("TAG", "DocumentSnapshot added with ID: " + documentReference.getId());
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error adding document", e);
+                    }
+                });*/
+
+        db.collection("Usuarios")
+                .document(correo)
+                .set(usuario)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d("TAG", "DocumentSnapshot successfully written!");
+                        finish();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w("TAG", "Error writing document", e);
+                    }
+                });
     }
 
     public void registrarUsuarioFirebase(String correo, String contrasena) {

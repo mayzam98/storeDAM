@@ -22,6 +22,9 @@ import com.google.android.material.textview.MaterialTextView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private Button btn_registro;
@@ -77,7 +80,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     toLogin(usuario, contrasena);
                 } else {
                     //Toast.makeText(this, "Error iniciando sesion", Toast.LENGTH_SHORT).show();
-                    inicioSesionFirebase(usuario, contrasena);
+                    //inicioSesionFirebase(usuario, contrasena);
+                    inicioSesionFireStore(usuario, contrasena);
                 }
 
                 break;
@@ -86,6 +90,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivityForResult(intent,ACTIVITY_REGISTRO);
                 break;
         }
+    }
+
+    public void inicioSesionFireStore(String correo, String contrasena){
+
+        // Access a Cloud Firestore instance from your Activity
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        DocumentReference docRef = db.collection("Usuarios").document(correo);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.e("TAG", "DocumentSnapshot data: " + document.getData());
+
+                        String userContrasena = document.getData().get("contrasena").toString();
+                        if (contrasena.equals(userContrasena)){
+                            toLogin(correo,contrasena);
+                        }else {
+                            Toast.makeText(MainActivity.this, "Contraseña incorrecta", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } else {
+                        Log.e("TAG", "No such document");
+                        Toast.makeText(MainActivity.this, "Correo o contraseña incorrecto", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Log.e("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
     }
 
     public void inicioSesionFirebase(String usuario, String contrasena) {
